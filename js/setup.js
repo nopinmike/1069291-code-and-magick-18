@@ -7,6 +7,8 @@ var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
 var wizards = [];
 var setupBlock = document.querySelector('.setup');
+var similar = setupBlock.querySelector('.setup-similar');
+var similarListElement = similar.querySelector('.setup-similar-list');
 var similarTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 var fragment = document.createDocumentFragment();
 
@@ -38,7 +40,7 @@ for (var i = 0; i < wizards.length; i++) {
   fragment.appendChild(renderWizard(wizards[i]));
 }
 
-
-
+similarListElement.appendChild(fragment);
 setupBlock.classList.remove('hidden');
+similar.classList.remove('hidden');
 
