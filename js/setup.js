@@ -18,8 +18,11 @@ var buttonCloseSetup = setupBlock.querySelector('.setup-close');
 var setupUserName = setupBlock.querySelector('.setup-user-name');
 var setupWizard = setupBlock.querySelector('.setup-wizard');
 var setupFireballWrap = setupBlock.querySelector('.setup-fireball-wrap');
+var inputFireballWrap = setupFireballWrap.querySelector('input[name="fireball-color"]');
 var wizardCoat = setupWizard.querySelector('.wizard-coat');
+var inputWizardCoat = setupBlock.querySelector('input[name="coat-color"]');
 var wizardEyes = setupWizard.querySelector('.wizard-eyes');
+var inputWizardEyes = setupBlock.querySelector('input[name="eyes-color"]');
 
 function getRandomInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -42,15 +45,21 @@ function renderWizard(wizard) {
 }
 
 function changeColorCoat() {
-  wizardCoat.style.fill = COAT_COLORS[getRandomInRange(0, COAT_COLORS.length - 1)];
+  var randomColor = COAT_COLORS[getRandomInRange(0, COAT_COLORS.length - 1)];
+  wizardCoat.style.fill = randomColor;
+  inputWizardCoat.value = randomColor;
 }
 
 function changeColorEyes() {
-  wizardEyes.style.fill = EYES_COLORS[getRandomInRange(0, EYES_COLORS.length - 1)];
+  var randomColor = EYES_COLORS[getRandomInRange(0, EYES_COLORS.length - 1)];
+  wizardEyes.style.fill = randomColor;
+  inputWizardEyes.value = randomColor;
 }
 
 function changeColorFireball() {
-  setupFireballWrap.style.background = FIREBALL_COLORS[getRandomInRange(0, FIREBALL_COLORS.length - 1)];
+  var randomColor = FIREBALL_COLORS[getRandomInRange(0, FIREBALL_COLORS.length - 1)];
+  setupFireballWrap.style.background = randomColor;
+  inputFireballWrap.value = randomColor;
 }
 
 function onChangeColorWizard(evt) {
