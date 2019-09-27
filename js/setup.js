@@ -28,11 +28,15 @@ function getRandomInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function getRandomElementFromArray(array) {
+  return array[getRandomInRange(0, array.length - 1)];
+}
+
 function createWizard() {
   var wizard = {};
-  wizard.name = NAMES[getRandomInRange(0, NAMES.length - 1)] + ' ' + SURNAMES[getRandomInRange(0, SURNAMES.length - 1)];
-  wizard.coatColor = COAT_COLORS[getRandomInRange(0, COAT_COLORS.length - 1)];
-  wizard.eyesColor = EYES_COLORS[getRandomInRange(0, EYES_COLORS.length - 1)];
+  wizard.name = getRandomElementFromArray(NAMES) + ' ' + getRandomElementFromArray(SURNAMES);
+  wizard.coatColor = getRandomElementFromArray(COAT_COLORS);
+  wizard.eyesColor = getRandomElementFromArray(EYES_COLORS);
   return wizard;
 }
 
@@ -45,19 +49,19 @@ function renderWizard(wizard) {
 }
 
 function changeColorCoat() {
-  var randomColor = COAT_COLORS[getRandomInRange(0, COAT_COLORS.length - 1)];
+  var randomColor = getRandomElementFromArray(COAT_COLORS);
   wizardCoat.style.fill = randomColor;
   inputWizardCoat.value = randomColor;
 }
 
 function changeColorEyes() {
-  var randomColor = EYES_COLORS[getRandomInRange(0, EYES_COLORS.length - 1)];
+  var randomColor = getRandomElementFromArray(EYES_COLORS);
   wizardEyes.style.fill = randomColor;
   inputWizardEyes.value = randomColor;
 }
 
 function changeColorFireball() {
-  var randomColor = FIREBALL_COLORS[getRandomInRange(0, FIREBALL_COLORS.length - 1)];
+  var randomColor = getRandomElementFromArray(FIREBALL_COLORS);
   setupFireballWrap.style.background = randomColor;
   inputFireballWrap.value = randomColor;
 }
@@ -79,10 +83,6 @@ function onEnterChangeColorWizard(evt) {
   }
 }
 
-function onChangeColorFireball() {
-  changeColorFireball();
-}
-
 function onEscSetupBlock(evt) {
   if (evt.keyCode === ESC_KEYCODE && evt.target !== setupUserName) {
     closeSetupBlock();
@@ -94,7 +94,7 @@ function openSetupBlock() {
   document.addEventListener('keydown', onEscSetupBlock);
   setupWizard.addEventListener('keydown', onEnterChangeColorWizard);
   setupWizard.addEventListener('click', onChangeColorWizard);
-  setupFireballWrap.addEventListener('click', onChangeColorFireball);
+  setupFireballWrap.addEventListener('click', changeColorFireball);
 }
 
 function closeSetupBlock() {
@@ -102,13 +102,11 @@ function closeSetupBlock() {
   document.removeEventListener('keydown', onEscSetupBlock);
   setupWizard.removeEventListener('keydown', onEnterChangeColorWizard);
   setupWizard.removeEventListener('click', onChangeColorWizard);
-  setupFireballWrap.removeEventListener('click', onChangeColorFireball);
+  setupFireballWrap.removeEventListener('click', changeColorFireball);
 }
 
 function addEventsForSetupBlock() {
-  buttonOpenSetup.addEventListener('click', function () {
-    openSetupBlock();
-  });
+  buttonOpenSetup.addEventListener('click', openSetupBlock);
 
   buttonOpenSetup.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ENTER_KEYCODE) {
@@ -116,9 +114,7 @@ function addEventsForSetupBlock() {
     }
   });
 
-  buttonCloseSetup.addEventListener('click', function () {
-    closeSetupBlock();
-  });
+  buttonCloseSetup.addEventListener('click', closeSetupBlock);
 
   buttonCloseSetup.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ENTER_KEYCODE) {
@@ -126,7 +122,6 @@ function addEventsForSetupBlock() {
     }
   });
 }
-
 
 function init() {
   var fragment = document.createDocumentFragment();
